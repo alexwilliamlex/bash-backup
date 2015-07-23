@@ -1,6 +1,6 @@
 #!/bin/bash
 # @author: Sébastien SERRE
-# @mail: sebastien@thivinfo
+# @mail: sebastien@thivinfo.com
 # License: GPL
 #
 # Backup directory constant
@@ -15,6 +15,24 @@ find $DST -type f -mtime +X | xargs -r rm # replace X by number of days you want
 find $DSTDB -type f -mtime +X |xargs -r rm # replace X by number of days you want to keep
 echo "Stop Cleaning : "`date "+%d-%m-%Y %T"` >> $DST/log
 
+## going to backup folders
+#
+echo "Start backup db : "`date "+%d-%m-%Y %T"` >> $DST/log
+cd $DSTDB
+
+for i in name_of_your_db_separated_by_a space; do
+
+## Sauvegarde des bases de donnees en fichiers .sql
+mysqldump --user=XXX --password=XXXXX $i > ${i}_`date +%D | sed 's;/;-;g'`.sql   #replace XXXX by useer and passord to access to mysql
+
+## Compress to tar.bz2 (best rate)
+tar jcf ${i}_`date "+%d-%m-%Y %T" | sed 's;/;-;g'`.sql.tar.bz2 ${i}_`date "+%d-%m-%Y %T" | sed 's;/;-;g'`.sql
+
+## delete uncompressed backupup
+rm ${i}_`date "+%d-%m-%Y %T" | sed 's;/;-;g'`.sql
+done
+
+echo "End backup db : "`date "+%d-%m-%Y %T"` >> $DST/log
 echo "Start Copy : "`date "+%d-%m-%Y %T"` >> $DST/log
 cd $DST
 if [ ! -d "temp" ]; then
@@ -37,3 +55,4 @@ for i in path/to/file/to/backup path/to/file/to/backup;
 			echo "Start rsync : "`date "+%d-%m-%Y %T"` >> $DST/log
 			rsync -e ssh -avz --delete-after ~/main/path/backup/ user@fdomain:~/path/to/store/backup/in/remote/host
 			echo "Stop rsync : "`date "+%d-%m-%Y %T"` >> $DST/log
+
