@@ -1,6 +1,7 @@
 #!/bin/bash
 # @author: Sébastien SERRE
 # @mail: sebastien@thivinfo.com
+# @url: www.sebastien-serre.fr
 # License: GPL
 #
 # Backup directory constant
@@ -55,4 +56,5 @@ for i in path/to/file/to/backup path/to/file/to/backup;
 			echo "Start rsync : "`date "+%d-%m-%Y %T"` >> $DST/log
 			rsync -e ssh -avz --delete-after ~/main/path/backup/ user@fdomain:~/path/to/store/backup/in/remote/host
 			echo "Stop rsync : "`date "+%d-%m-%Y %T"` >> $DST/log
+			rsync -e ssh -avz --delete-after ~/main/path/backup/ user@fdomain:~/path/to/store/backup/in/remote/host
 
