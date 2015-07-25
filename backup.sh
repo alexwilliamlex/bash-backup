@@ -27,10 +27,10 @@ for i in name_of_your_db_separated_by_a space; do
 mysqldump --user=XXX --password=XXXXX $i > ${i}_`date +%D | sed 's;/;-;g'`.sql   #replace XXXX by useer and passord to access to mysql
 
 ## Compress to tar.bz2 (best rate)
-tar jcf ${i}_`date "+%d-%m-%Y %T" | sed 's;/;-;g'`.sql.tar.bz2 ${i}_`date "+%d-%m-%Y %T" | sed 's;/;-;g'`.sql
+tar jcf ${i}_`date "+%d-%m-%Y" | sed 's;/;-;g'`.sql.tar.bz2 ${i}_`date "+%d-%m-%Y" | sed 's;/;-;g'`.sql
 
-## delete uncompressed backupup
-rm ${i}_`date "+%d-%m-%Y %T" | sed 's;/;-;g'`.sql
+## delete uncompressed backup
+rm ${i}_`date "+%d-%m-%Y" | sed 's;/;-;g'`.sql
 done
 
 echo "End backup db : "`date "+%d-%m-%Y %T"` >> $DST/log
