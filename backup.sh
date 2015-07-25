@@ -36,8 +36,8 @@ done
 echo "End backup db : "`date "+%d-%m-%Y %T"` >> $DST/log
 echo "Start Copy : "`date "+%d-%m-%Y %T"` >> $DST/log
 cd $DST
-if [ ! -d "temp" ]; then
-	mkdir temp;
+if [ ! -d "$DST/files/temp" ]; then
+	mkdir $DST/files/temp;
 fi
 
 #files backup; add path separated by a space
@@ -45,9 +45,9 @@ for i in path/to/file/to/backup path/to/file/to/backup;
 			do
 				cd $i;
     			folder=$(basename `pwd`);
-    			cp -R $i $DST/temp
-				tar -zcf $DST/$folder-$DATE.tar.gz $DST/temp/$folder
-				rm -rf $DST/temp/$folder
+    			cp -R $i $DST/files/temp
+				tar -zcf $DST/files/$folder-$DATE.tar.gz $DST/files/temp/$folder
+				rm -rf $DST/files/temp/$folder
 			done
 
 			echo "End Copy : "`date "+%d-%m-%Y %T"` >> $DST/log
