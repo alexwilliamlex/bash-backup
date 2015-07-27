@@ -8,6 +8,7 @@
 DST=/path/to/files/backup/storage
 DSTDB=/path/to/files/backup/storage
 DATE=`date +%d-%m-%Y`
+ADRESS=yourmail@domain.tld
 
 ## Delete more than X days backup
 #
@@ -56,5 +57,6 @@ for i in path/to/file/to/backup path/to/file/to/backup;
 			echo "Start rsync : "`date "+%d-%m-%Y %T"` >> $DST/log
 			rsync -e ssh -avz --delete-after ~/main/path/backup/ user@fdomain:~/path/to/store/backup/in/remote/host
 			echo "Stop rsync : "`date "+%d-%m-%Y %T"` >> $DST/log
-			rsync -e ssh -avz --delete-after ~/main/path/backup/ user@fdomain:~/path/to/store/backup/in/remote/host
+			echo "Backup terminé le "`date "+%d-%m-%Y %T"` $LOG | mail -s "backup du $DATE" $ADRESS
+			echo "Mail envoyé : "`date "+%d-%m-%Y %T"` >> $DST/log
 
