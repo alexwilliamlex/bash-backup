@@ -46,7 +46,7 @@ for i in path/to/file/to/backup path/to/file/to/backup;
 			do
 				cd $i;
     			folder=$(basename `pwd`);
-    			rsync -az --delete-after $i $DST/files/temp/
+    			rsync -az --size-only --delete-after $i $DST/files/temp/
 				tar -zcf $DST/files/$folder-$DATE.tar.gz $DST/files/temp/$folder
 			done
 
