@@ -46,10 +46,9 @@ for i in path/to/file/to/backup path/to/file/to/backup;
 			do
 				cd $i;
     			folder=$(basename `pwd`);
-    			cp -R $i $DST/files/temp
+    			rsync -az --delete-after $i $DST/files/temp/
 				tar -zcf $DST/files/$folder-$DATE.tar.gz $DST/files/temp/$folder
-				rm -rf $DST/files/temp/$folder
-				done
+			done
 
 			echo "End Copy : "`date "+%d-%m-%Y %T"` >> $DST/log
 
