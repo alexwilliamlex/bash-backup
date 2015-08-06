@@ -13,8 +13,8 @@ ADRESS=yourmail@domain.tld
 ## Delete more than X days backup
 #
 echo "Start Cleaning : "`date "+%d-%m-%Y %T"` >> $DST/log
-find $DST -type f -mtime +X | xargs -r rm # replace X by number of days you want to keep
-find $DSTDB -type f -mtime +X |xargs -r rm # replace X by number of days you want to keep
+find $DST -type f -mtime +X | xargs rm -f # replace X by number of days you want to keep
+find $DSTDB -type f -mtime +X |xargs rm -f # replace X by number of days you want to keep
 echo "Stop Cleaning : "`date "+%d-%m-%Y %T"` >> $DST/log
 
 ## going to backup folders
@@ -37,8 +37,8 @@ done
 echo "End backup db : "`date "+%d-%m-%Y %T"` >> $DST/log
 echo "Start Copy : "`date "+%d-%m-%Y %T"` >> $DST/log
 cd $DST
-if [ ! -d "$DST/files/temp" ]; then
-	mkdir $DST/files/temp;
+if [ ! -d "temp/" ]; then
+	mkdir temp/;
 fi
 
 #files backup; add path separated by a space
@@ -46,8 +46,8 @@ for i in path/to/file/to/backup path/to/file/to/backup;
 			do
 				cd $i;
     			folder=$(basename `pwd`);
-    			rsync -az --size-only --delete-after $i $DST/files/temp/
-				tar -zcf $DST/files/$folder-$DATE.tar.gz $DST/files/temp/$folder
+    			rsync -az --size-only --delete-after $i $DST/temp/
+				tar -zcf $DST/files/$folder-$DATE.tar.gz $DST/temp/$folder
 			done
 
 			echo "End Copy : "`date "+%d-%m-%Y %T"` >> $DST/log
