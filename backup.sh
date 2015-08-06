@@ -54,7 +54,7 @@ for i in path/to/file/to/backup path/to/file/to/backup;
 
 			#start rsync to a remote host
 			echo "Start rsync : "`date "+%d-%m-%Y %T"` >> $DST/log
-			rsync -e ssh -avz --exclude="files/temp" --delete-after ~/main/path/backup/ user@fdomain:~/path/to/store/backup/in/remote/host
+			rsync -e ssh -avz --exclude="temp" --delete-after ~/main/path/backup/ user@fdomain:~/path/to/store/backup/in/remote/host
 			echo "Stop rsync : "`date "+%d-%m-%Y %T"` >> $DST/log
 			echo "Backup terminé le "`date "+%d-%m-%Y %T"` $LOG | mail -s "backup du $DATE" $ADRESS
 			echo "Mail envoyé : "`date "+%d-%m-%Y %T"` >> $DST/log
