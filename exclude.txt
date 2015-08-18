@@ -1,0 +1,2 @@
+/add/path/to/file/to/be/exluded
+/add/path/to/folder/to/be/exluded/
