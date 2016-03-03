@@ -6,7 +6,7 @@
 #
 # Backup directory constant
 DST=/path/to/files/backup/storage
-DSTDB=/path/to/files/backup/storage
+DSTDB=/path/to/db/backup/storage
 DATE=`date +%d-%m-%Y`
 ADRESS=yourmail@domain.tld
 
@@ -42,10 +42,11 @@ if [ ! -d "temp/" ]; then
 fi
 
 #files backup; add path separated by a space
-for i in path/to/file/to/backup path/to/file/to/backup;
+for i in $DST;
 			do
 				cd $i;
     			folder=$(basename `pwd`);
+    			# customize your exclude path 
     			rsync -rvu --delete-excluded --exclude-from= path/to/exclude.txt $i $DST/temp/
 				tar -zcf $DST/files/$folder-$DATE.tar.gz $DST/temp/$folder
 			done
