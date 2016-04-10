@@ -46,7 +46,7 @@ for i in $DST;
 			do
 				cd $i;
     			folder=$(basename `pwd`);
-    			# customize your exclude path 
+    			# customize your exclude path
     			rsync -rvu --delete-excluded --exclude-from= path/to/exclude.txt $i $DST/temp/
 				tar -zcf $DST/files/$folder-$DATE.tar.gz $DST/temp/$folder
 			done
